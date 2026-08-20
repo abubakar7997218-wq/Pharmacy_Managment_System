@@ -811,3 +811,136 @@ SET character_set_client = @saved_cs_client;
 
 -- Dump completed on 2026-08-20 20:58:11
 
+
+/* =========================================================
+   DEMO / SAMPLE DATA
+   Synthetic data only. No real customer/patient information.
+   ========================================================= */
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+INSERT INTO `roles` (`RoleID`,`RoleName`) VALUES
+(1,'Admin'),(2,'Pharmacist'),(3,'Cashier'),(4,'Supplier Manager');
+
+INSERT INTO `users`
+(`UserID`,`FullName`,`Username`,`Email`,`PasswordHash`,`CNIC`,`RoleID`,`IsActive`,`CreatedAt`) VALUES
+(1,'Demo Administrator','admin.demo','admin.demo@example.com','DEMO_HASH_ADMIN','00000-0000000-0',1,1,'2026-08-01 09:00:00'),
+(2,'Ali Raza','pharmacist.demo','pharmacist.demo@example.com','DEMO_HASH_PHARMACIST','00000-0000001-0',2,1,'2026-08-02 09:15:00'),
+(3,'Sara Ahmed','cashier.demo','cashier.demo@example.com','DEMO_HASH_CASHIER','00000-0000002-0',3,1,'2026-08-03 10:00:00'),
+(4,'Usman Khan','supplier.demo','supplier.demo@example.com','DEMO_HASH_SUPPLIER','00000-0000003-0',4,1,'2026-08-04 10:30:00'),
+(5,'Hassan Malik','pharmacist2.demo','pharmacist2.demo@example.com','DEMO_HASH_PHARMACIST2','00000-0000004-0',2,1,'2026-08-05 11:00:00');
+
+INSERT INTO `medicinecategories` (`CategoryID`,`CategoryName`) VALUES
+(1,'Pain Relief'),(2,'Antibiotics'),(3,'Cold & Flu'),(4,'Vitamins & Supplements'),
+(5,'Gastrointestinal'),(6,'Allergy'),(7,'Diabetes'),(8,'First Aid');
+
+INSERT INTO `suppliers`
+(`SupplierID`,`SupplierName`,`ContactName`,`Phone`,`Email`,`Address`,`IsActive`,`CreatedAt`) VALUES
+(1,'MedCare Distributors','Ahmed Shah','0300-0000001','medcare@example.com','Lahore Demo Address',1,'2026-08-01 08:30:00'),
+(2,'HealthPlus Pharma','Bilal Ahmed','0300-0000002','healthplus@example.com','Lahore Demo Address',1,'2026-08-02 09:00:00'),
+(3,'PakMed Supplies','Usman Ali','0300-0000003','pakmed@example.com','Islamabad Demo Address',1,'2026-08-03 09:30:00'),
+(4,'CareSource Healthcare','Hina Tariq','0300-0000004','caresource@example.com','Rawalpindi Demo Address',1,'2026-08-04 10:00:00'),
+(5,'Wellness Pharma','Hamza Iqbal','0300-0000005','wellness@example.com','Karachi Demo Address',1,'2026-08-05 10:30:00'),
+(6,'Prime Medical Traders','Ayesha Noor','0300-0000006','prime@example.com','Faisalabad Demo Address',1,'2026-08-06 11:00:00');
+
+INSERT INTO `medicines`
+(`MedicineID`,`CategoryID`,`SupplierID`,`MedicineName`,`GenericName`,`Brand`,`BatchNumber`,
+`UnitPrice`,`StockQty`,`MinStockLevel`,`ExpiryDate`,`RequiresPrescription`,`IsAvailable`,
+`AddedBy`,`CreatedAt`,`UpdatedAt`,`PurchasePrice`,`SellingPrice`) VALUES
+(1,1,1,'Paracetamol 500mg','Paracetamol','DemoPar','BAT-PA-001',12.00,120,20,'2027-06-30',0,1,2,'2026-08-01 09:00:00',NULL,8.00,12.00),
+(2,1,2,'Ibuprofen 400mg','Ibuprofen','DemoIbu','BAT-IB-002',18.00,75,15,'2027-04-30',0,1,2,'2026-08-01 09:10:00',NULL,12.00,18.00),
+(3,2,3,'Amoxicillin 500mg','Amoxicillin','DemoMox','BAT-AM-003',35.00,45,10,'2027-02-28',1,1,2,'2026-08-02 09:20:00',NULL,25.00,35.00),
+(4,3,1,'Cough Relief Syrup','Dextromethorphan','DemoCough','BAT-CS-004',145.00,28,10,'2027-01-31',0,1,2,'2026-08-02 10:00:00',NULL,105.00,145.00),
+(5,3,4,'Cold & Flu Tablets','Paracetamol + Phenylephrine','DemoCold','BAT-CF-005',22.00,18,20,'2026-12-31',0,1,2,'2026-08-03 10:15:00',NULL,15.00,22.00),
+(6,4,5,'Vitamin C 500mg','Ascorbic Acid','DemoC','BAT-VC-006',10.00,200,30,'2028-03-31',0,1,2,'2026-08-03 11:00:00',NULL,6.50,10.00),
+(7,4,6,'Multivitamin Tablets','Multivitamin','DemoVita','BAT-MV-007',28.00,95,20,'2027-11-30',0,1,2,'2026-08-04 09:00:00',NULL,19.00,28.00),
+(8,5,2,'Antacid Suspension','Aluminium Hydroxide','DemoAntacid','BAT-AS-008',95.00,32,10,'2027-08-31',0,1,2,'2026-08-04 09:30:00',NULL,70.00,95.00),
+(9,5,3,'Omeprazole 20mg','Omeprazole','DemoOme','BAT-OM-009',16.00,14,15,'2027-05-31',1,1,2,'2026-08-05 10:00:00',NULL,10.00,16.00),
+(10,6,4,'Cetirizine 10mg','Cetirizine','DemoCet','BAT-CT-010',9.00,60,15,'2027-09-30',0,1,2,'2026-08-05 10:20:00',NULL,5.50,9.00),
+(11,6,5,'Loratadine 10mg','Loratadine','DemoLor','BAT-LR-011',14.00,52,10,'2027-10-31',0,1,2,'2026-08-05 11:00:00',NULL,8.00,14.00),
+(12,7,6,'Glucose Test Strips','Blood Glucose Test Strips','DemoStrip','BAT-GS-012',650.00,12,15,'2027-12-31',0,1,2,'2026-08-06 09:00:00',NULL,520.00,650.00),
+(13,7,1,'Metformin 500mg','Metformin','DemoMet','BAT-MT-013',11.00,80,20,'2027-07-31',1,1,2,'2026-08-06 09:20:00',NULL,7.00,11.00),
+(14,8,2,'Antiseptic Solution','Povidone-Iodine','DemoSept','BAT-PS-014',180.00,25,8,'2028-01-31',0,1,2,'2026-08-06 10:00:00',NULL,130.00,180.00),
+(15,8,3,'Adhesive Bandages','Adhesive Bandage','DemoBand','BAT-AB-015',75.00,40,10,'2029-01-31',0,1,2,'2026-08-06 10:30:00',NULL,50.00,75.00);
+
+INSERT INTO `stockdeliverymaster`
+(`DeliveryID`,`SupplierID`,`InvoiceNo`,`DeliveryDate`,`ReceivedBy`,`Notes`) VALUES
+(1,1,'DEMO-INV-001','2026-08-05',2,'Demo delivery - general medicines'),
+(2,2,'DEMO-INV-002','2026-08-07',2,'Demo delivery - gastrointestinal medicines'),
+(3,3,'DEMO-INV-003','2026-08-10',4,'Demo delivery - antibiotics and first aid'),
+(4,5,'DEMO-INV-004','2026-08-12',2,'Demo delivery - vitamins and allergy medicines');
+
+INSERT INTO `stockdeliverydetails`
+(`DetailID`,`DeliveryID`,`MedicineID`,`BatchNumber`,`ExpiryDate`,`QtyReceived`,`UnitCost`) VALUES
+(1,1,1,'BAT-PA-001','2027-06-30',100,8.00),
+(2,1,4,'BAT-CS-004','2027-01-31',30,105.00),
+(3,1,5,'BAT-CF-005','2026-12-31',40,15.00),
+(4,2,8,'BAT-AS-008','2027-08-31',35,70.00),
+(5,2,9,'BAT-OM-009','2027-05-31',25,10.00),
+(6,3,3,'BAT-AM-003','2027-02-28',50,25.00),
+(7,3,14,'BAT-PS-014','2028-01-31',30,130.00),
+(8,3,15,'BAT-AB-015','2029-01-31',50,50.00),
+(9,4,6,'BAT-VC-006','2028-03-31',150,6.50),
+(10,4,11,'BAT-LR-011','2027-10-31',60,8.00);
+
+INSERT INTO `prescriptions`
+(`PrescriptionID`,`CustomerName`,`CustomerPhone`,`DoctorName`,`PrescriptionDate`,`RecordedBy`,`CreatedAt`,`Notes`) VALUES
+(1,'Demo Customer A','0300-1111111','Dr. Ahmed','2026-08-08',2,'2026-08-08 10:15:00','Demo prescription'),
+(2,'Demo Customer B','0300-2222222','Dr. Sara','2026-08-09',2,'2026-08-09 11:00:00','Demo prescription'),
+(3,'Demo Customer C','0300-3333333','Dr. Hamza','2026-08-11',4,'2026-08-11 12:30:00','Demo prescription'),
+(4,'Demo Customer D','0300-4444444','Dr. Hina','2026-08-13',2,'2026-08-13 14:00:00','Demo prescription'),
+(5,'Demo Customer E','0300-5555555','Dr. Usman','2026-08-15',2,'2026-08-15 16:20:00','Demo prescription');
+
+INSERT INTO `prescriptionmedicines`
+(`PrescMedID`,`PrescriptionID`,`MedicineID`,`MedicineName`,`Dosage`,`Duration`) VALUES
+(1,1,3,'Amoxicillin 500mg','1 capsule, 3 times daily','5 days'),
+(2,1,13,'Metformin 500mg','1 tablet after dinner','30 days'),
+(3,2,9,'Omeprazole 20mg','1 capsule before breakfast','14 days'),
+(4,2,10,'Cetirizine 10mg','1 tablet at night','7 days'),
+(5,3,3,'Amoxicillin 500mg','1 capsule, 2 times daily','5 days'),
+(6,4,13,'Metformin 500mg','1 tablet twice daily','30 days'),
+(7,5,2,'Ibuprofen 400mg','1 tablet after meal as needed','3 days'),
+(8,5,9,'Omeprazole 20mg','1 capsule daily','7 days');
+
+INSERT INTO `bills`
+(`BillID`,`BillDate`,`CustomerName`,`PrescriptionID`,`CashierUserID`,`SubTotal`,`GSTAmount`,
+`DiscountAmount`,`GrandTotal`,`PaymentMethod`,`Status`,`CustomerPhone`) VALUES
+(1,'2026-08-08 10:30:00','Demo Customer A',1,3,70.00,3.50,0.00,73.50,'Cash','Completed','0300-1111111'),
+(2,'2026-08-09 11:20:00','Demo Customer B',2,3,25.00,1.25,2.00,24.25,'Card','Completed','0300-2222222'),
+(3,'2026-08-10 12:10:00','Demo Walk-in',NULL,3,120.00,6.00,5.00,121.00,'Cash','Completed','0300-6666666'),
+(4,'2026-08-11 13:45:00','Demo Customer C',3,3,105.00,5.25,0.00,110.25,'Cash','Completed','0300-3333333'),
+(5,'2026-08-12 15:00:00','Demo Walk-in',NULL,3,180.00,9.00,10.00,179.00,'Card','Completed','0300-7777777'),
+(6,'2026-08-13 14:15:00','Demo Customer D',4,3,22.00,1.10,0.00,23.10,'Cash','Completed','0300-4444444'),
+(7,'2026-08-14 16:40:00','Demo Walk-in',NULL,3,95.00,4.75,0.00,99.75,'Cash','Completed','0300-8888888'),
+(8,'2026-08-15 17:10:00','Demo Customer E',5,3,52.00,2.60,2.00,52.60,'Cash','Completed','0300-5555555'),
+(9,'2026-08-16 10:05:00','Demo Walk-in',NULL,3,75.00,3.75,0.00,78.75,'Card','Completed','0300-9999999'),
+(10,'2026-08-17 18:00:00','Demo Walk-in',NULL,3,36.00,1.80,1.00,36.80,'Cash','Cancelled','0300-1212121');
+
+INSERT INTO `billitems`
+(`BillItemID`,`BillID`,`MedicineID`,`Quantity`,`UnitPrice`,`TotalPrice`) VALUES
+(1,1,3,2,35.00,70.00),
+(2,2,9,1,16.00,16.00),
+(3,2,10,1,9.00,9.00),
+(4,3,1,5,12.00,60.00),
+(5,3,10,2,9.00,18.00),
+(6,3,6,2,10.00,20.00),
+(7,3,15,1,75.00,75.00),
+(8,4,3,3,35.00,105.00),
+(9,5,14,1,180.00,180.00),
+(10,6,5,1,22.00,22.00),
+(11,7,8,1,95.00,95.00),
+(12,8,2,2,18.00,36.00),
+(13,8,9,1,16.00,16.00),
+(14,9,15,1,75.00,75.00),
+(15,10,1,3,12.00,36.00);
+
+INSERT INTO `settings`
+(`SettingKey`,`SettingValue`,`Description`,`UpdatedBy`,`UpdatedAt`) VALUES
+('PharmacyName','Care Pharmacy Demo','Demo pharmacy name',1,'2026-08-01 09:00:00'),
+('Currency','PKR','Demo currency setting',1,'2026-08-01 09:00:00'),
+('TaxRate','5','Demo GST/tax rate percentage',1,'2026-08-01 09:00:00'),
+('LowStockThreshold','10','Default low-stock threshold',1,'2026-08-01 09:00:00'),
+('ExpiryAlertDays','30','Show medicines expiring within this many days',1,'2026-08-01 09:00:00'),
+('ReceiptFooter','Thank you for visiting Care Pharmacy','Demo receipt footer',1,'2026-08-01 09:00:00');
+
+SET FOREIGN_KEY_CHECKS = 1;
